@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import json
 
 from .models import Product, Customer, Order, OrderItem
@@ -22,6 +22,14 @@ def billing(request):
         #             'products': products, }
         return render(request, 'billing_details.html', {'customer': customer, 'products': products})
 
+def addit(request, product_id=None):
+    product=Product.objects.get(id=product_id)
+    print(product)
+    
+    return redirect("billing")
+
+
+
 def order(request):
     if request.method == 'POST':
         data = json.loads(request.POST.get('data', None))
@@ -34,7 +42,7 @@ def order(request):
                                     total_price=data['total_price'],
                                     success=False)
         for product_id in data['product_ids']:
-            OrderItem(product=Product.objects.get(pk=product_id), order=order).save()
+            OrderItem( product=Product.objects.get(pk=product_id), order=order).save()
         if data['total_price'] <= customer.balance:
             customer.balance -= int(data['total_price'])
             customer.save()
