@@ -83,12 +83,10 @@
       								<td><a href="{% url 'deleteitem' order.id %}">#{{ order.id }}</a></td>
       								<td class="text-center">{{order.timestamp}}</td>
       								<td class="text-right">₹{{ order.total_price }}</td>
-      							
+      							</tr>
                   {% endfor %}
-				  {% for oit in oitem %}
-						<td class="text-right">{{ oit.product.name }}</td>
-				  {% endfor %}
-								</tr>
+				  
+								
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Total</strong></td>
@@ -98,7 +96,12 @@
     					</table>
     				</div>
           </div>
+		  
   			</div>
+			<h4>All the orders as of yet</h4>
+			{% for oit in three %}
+				<p class="text-center">{{ oit }}</p>
+			  {% endfor %}
   	  </div>
     </div>
   </div>
