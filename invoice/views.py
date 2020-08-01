@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from pos.models import Product, Customer, Order, OrderItem
 import json
-import numpy as np
+
 def invoice_dashboard(request):
     return render(request, 'invoice_dashboard.html')
 
