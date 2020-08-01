@@ -1,1 +1,1 @@
-web: gunicorn animals.wsgi:application --log-file - --log-level debug
+web: gunicorn django_pos.wsgi:application --log-file - --log-level debug
