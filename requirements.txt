@@ -34,9 +34,7 @@ Jinja2==2.11.2
 kiwisolver==1.2.0
 MarkupSafe==1.1.1
 matplotlib==3.2.2
-mkl-fft==1.1.0
-mkl-random==1.1.1
-mkl-service==2.3.0
+
 mysqlclient==2.0.1
 parso==0.7.0
 pickleshare==0.7.5
