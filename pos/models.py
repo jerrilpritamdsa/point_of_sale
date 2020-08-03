@@ -38,5 +38,8 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=True)
+    
+    
    
+    
     

@@ -14,19 +14,30 @@ def customer_invoice(request):
         one=[]
         two=[]
         three=[]
+        four=[]
+        summ=[]
+        
         for i in range(0,len(customer_orders)):
             one.append(customer_orders[i])
+        
         for i in range(0,len(one)):
             two.append(OrderItem.objects.filter(order_id=one[i]))
+        #print(two)
         for each in range(0,len(two)):
+            
             for indi in range(0,len(two[each])):
-                three.append(two[each][indi].product.name)
-        
+                three.append(two[each][indi].product)
+                four.append(two[each][indi].id)
+                summ.append(two[each][indi].product.price)
+                
+        print(summ)
         oitem=OrderItem.objects.filter(order_id=customer_orders[0])
         context = {'orders': [order for order in customer_orders],
-                'total': sum([int(order.total_price) for order in customer_orders]),
+                'total': sum([int(summitem) for summitem in summ]),
                 'customer': customer,
-                'three':three}
+                'three':three,
+                'four':four,
+                'summ':summ}
         
         
         return render(request, 'customer_invoice_detail.html', context)
@@ -46,5 +57,16 @@ def remove(request):
         
 def deleteitem(request, order_id=None):
     order=Order.objects.get(id=order_id)
+
     order.delete()
     return redirect("customer_invoice")
+
+
+
+def delete_that_list(request, orderitem_id=None):
+    orderitem=OrderItem.objects.get(id=orderitem_id)
+    print(orderitem)
+    
+    orderitem.delete()
+    return redirect("customer_invoice")
+    

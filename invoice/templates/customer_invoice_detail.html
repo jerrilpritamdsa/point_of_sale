@@ -68,29 +68,43 @@
             <div class="table-responsive">
     					<table class="table table-condensed">
     						<thead>
-                  <tr>
-        						<td><strong>Order No.</strong></td>
-        						<td class="text-center"><strong>Date</strong></td>
-        						<td class="text-right"><strong>Total Price</strong></td>
-								<td class="text-center"><strong>Orderlist</strong></td>
-                  </tr>
+								<tr>
+									<td><strong>Order Id</strong></td>
+									<td><strong>Item Name</strong></td>
+									<td><strong>Item Price</strong></td>
+									
+								</tr>
     						</thead>
     						<tbody>
 									
 							
-                  {% for order in orders %}
+                  
       							<tr>
-      								<td><a href="{% url 'deleteitem' order.id %}">#{{ order.id }}</a></td>
-      								<td class="text-center">{{order.timestamp}}</td>
-      								<td class="text-right">₹{{ order.total_price }}</td>
+      								
+      								<td>
+										{% for ids in four %}
+											<a href= "{% url 'delete_that_list' ids %}"><p>#{{ ids }}</p></a>
+										{% endfor %}
+									</td>
+									<td>
+										{% for orderitem in three %}
+											<p >{{ orderitem.name }}</p>
+										{% endfor %}
+									</td>
+									<td>
+										{% for sm in summ %}
+											<p>₹{{ sm }}</p></a>
+										{% endfor %}
+									</td>
+      								
       							</tr>
-                  {% endfor %}
+                  
 				  
 								
     							<tr>
     								<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Total</strong></td>
-    								<td class="thick-line text-right">₹{{ total }}</td>
+    								<td class="thick-line">₹{{ total }}.00</td>
     							</tr>
     						</tbody>
     					</table>
@@ -98,10 +112,7 @@
           </div>
 		  
   			</div>
-			<h4>All the orders as of yet</h4>
-			{% for oit in three %}
-				<p class="text-center">{{ oit }}</p>
-			  {% endfor %}
+			
   	  </div>
     </div>
   </div>
