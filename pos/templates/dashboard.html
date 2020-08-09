@@ -25,5 +25,26 @@
         <a href="{% url 'invoice_dashboard' %}" class="btn btn-primary">Generate Invoice</a>
       </div>
     </div>
-  </div>
+	<div class="card">
+	<div class="card-header">
+        <h5>Enter Customer name and table number</h5>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+			 {% csrf_token %}
+			 {{form.as_p}}
+			<input type="submit" class="btn btn-primary" value="Save"></input>
+   		</div>
+		
+		</form>
+		</div>
+        
+      </div>
+	  <br>
+	  <div class="container"><a href ="{% url 'sold_products' %}" class="btn btn-primary">Sold Items</a>
+	  
+	  <a href ="{% url 'export' %}" class="btn btn-primary">Download Excel</a>
+    </div>
+	  
+	  
 {% endblock %}

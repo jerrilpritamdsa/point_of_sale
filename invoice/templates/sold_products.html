@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Invoice Dashboard - POS System</title>
+{% endblock %}
+
+{% block content %}
+	<h2>All the products sold so far</h2>
+	{% for pro in product %}
+		<p>{{pro.name}} : {{pro.price}}x{{pro.ordered_times}}  = {% widthratio pro.price 1 pro.ordered_times %} </p>
+		
+	{% endfor %}
+{% endblock %}

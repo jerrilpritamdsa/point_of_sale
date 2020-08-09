@@ -25,8 +25,25 @@
       </div>
       <div class="card-body">
         {% for product in products %}
-          <a href="#" onclick="addItem({{ product.id }}, '{{ product.name }}', {{ product.price }})" class="btn btn-outline-secondary">
-            {{ product.name }}
+			{% if product.present_item > 0 %}
+				<a href="#" onclick="addItem({{ product.id }}, '{{ product.name }}', {{ product.price }}, {{product.present_item}})" class="btn btn-outline-secondary">
+				
+				{{ product.name }}
+				({{product.present_item}})
+				</a>
+			{% else %}
+				<a href="#" onclick="doSomething()" class="btn btn-danger">
+				<script type= "text/javascript">
+				function doSomething(){
+					alert("Product is empty");
+				}
+				</script>
+				{{ product.name }}
+				</a>
+            {% endif %}
+				
+				
+			
           </a>
         {% endfor %}
       </div>

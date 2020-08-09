@@ -4,6 +4,8 @@ from django.db import models
 class Product(models.Model):
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    present_item = models.IntegerField(default=0)
+    ordered_times=models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -16,7 +18,7 @@ def customer_photo_directory(instance, filename):
 class Customer(models.Model):
     identity = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
-    balance = models.DecimalField(max_digits=6, decimal_places=2)
+    balance = models.DecimalField(max_digits=6, decimal_places=2, default=9999)
     
 
     def __str__(self):

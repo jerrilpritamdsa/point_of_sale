@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect
 import json
-
+from .forms import CustomerForm
 from .models import Product, Customer, Order, OrderItem
 
 
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    form = CustomerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        
+    context={'form':form}
+    return render(request, 'dashboard.html',context)
+    
+
+    
+      
 
 def billing(request):
     if request.method == 'GET':
@@ -41,12 +50,20 @@ def order(request):
         order = Order.objects.create(customer=customer,
                                     total_price=data['total_price'],
                                     success=False)
+                                    
         for product_id in data['product_ids']:
-            OrderItem( product=Product.objects.get(pk=product_id), order=order).save()
-        if data['total_price'] <= customer.balance:
-            customer.balance -= int(data['total_price'])
-            customer.save()
-            order.success = True
+            product=Product.objects.get(pk=product_id)
+            OrderItem( product=product, order=order).save()
+            if product.present_item > 0:
+                product.present_item = product.present_item - 1
+                product.ordered_times=product.ordered_times + 1
+                product.save()
+                if data['total_price'] <= customer.balance:
+                    customer.balance -= int(data['total_price'])
+                    customer.save()
+                    order.success = True
+            
+        
         order.save()
         return render(request, 'order.html', {'success' : order.success})
     

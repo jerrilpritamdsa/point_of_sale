@@ -1,32 +1,40 @@
 var product_ids = [];
 var total_price = 0;
 
-function addItem(item_id, item_name, item_price) {
-  var tableBody = document.getElementById('summary-table-body');
-  var tr = document.createElement('tr');
 
-  var td_name = document.createElement('td');
-  td_name.innerHTML = item_name;
+
+
+function addItem(item_id, item_name, item_price, present_item) {
   
+	if(present_item > 0){
+		var tableBody = document.getElementById('summary-table-body');
+		var tr = document.createElement('tr');
+		var td_name = document.createElement('td');
+		td_name.innerHTML = item_name;
+
+
+
+
+		var td_price = document.createElement('td');
+		td_price.setAttribute('class', 'text-right');
+		td_price.innerHTML = '₹' + item_price;
+
+		total_price += item_price;
+
+		tr.appendChild(td_name);
+		tr.appendChild(td_price);
+		
+		clearTotal();
+
+		tableBody.appendChild(tr);
+		tableBody.appendChild(getTotal());
+
+
+		product_ids.push(item_id);
+	}
+	  
 
   
-  
-  var td_price = document.createElement('td');
-  td_price.setAttribute('class', 'text-right');
-  td_price.innerHTML = '₹' + item_price;
-
-  total_price += item_price;
-
-  tr.appendChild(td_name);
-  tr.appendChild(td_price);
-
-  clearTotal();
-
-  tableBody.appendChild(tr);
-  tableBody.appendChild(getTotal());
-  
-
-  product_ids.push(item_id);
 }
 
 function clearAllItems() {
