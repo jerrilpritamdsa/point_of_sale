@@ -1,5 +1,28 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
+
+class User(AbstractUser):
+
+    id = models.CharField(max_length=15, unique=True, primary_key=True)
+    username = models.CharField(max_length=256, unique=True)
+    email = models.EmailField()
+    
+    date_joined = models.DateTimeField(
+        verbose_name="date joined",
+        auto_now_add=True
+    )
+    last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['id', 'email', ]
+
+    def __str__(self):
+        return self.username
+
+    def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
 
 class Product(models.Model):
     name = models.CharField(max_length=50)

@@ -9,4 +9,7 @@ urlpatterns = [
     path('delete_that_list/<int:orderitem_id>/', views.delete_that_list, name ='delete_that_list'),
     path('sold_products/', views.sold_products, name ='sold_products'),
     path('export/', views.export_users_xls, name ='export'),
+    path('split/', views.split , name ='split'),
+    path('clear/', views.clear , name ='clear'),
+    
 ]

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Customer, Order, OrderItem
+from .models import Product, Customer, Order, OrderItem, User
 
 
 admin.site.site_header = 'POS Administration'
@@ -27,3 +27,4 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
+admin.site.register(User)

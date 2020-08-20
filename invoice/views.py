@@ -1,17 +1,26 @@
 from django.shortcuts import render, redirect
 from pos.models import Product, Customer, Order, OrderItem
-
+from pos.forms import ProductForm
 import csv
 from django.http import HttpResponse
 import json
+import itertools
 
 def invoice_dashboard(request):
     return render(request, 'invoice_dashboard.html')
 
 def sold_products(request):
-    product=Product.objects.all()
+    product = Product.objects.all()
+    form = ProductForm(request.POST or None)
+    if form.is_valid():
+        name = form.cleaned_data['name']
+        lst = [(names[0]) for names in Product.objects.values_list('name')]
+        
+        form.save() if name not in lst else print(lst)
     
-    context={'product':product,}
+    
+    
+    context={'product':product,'form':form}
     return render(request, 'sold_products.html', context)
 
 def customer_invoice(request):
@@ -40,7 +49,8 @@ def customer_invoice(request):
                 summ.append(two[each][indi].product.price)
                 
         
-        
+        customer_invoice.total = sum([int(summitem) for summitem in summ])
+        print(customer_invoice.total)
         context = {'orders': [order for order in customer_orders],
                 'total': sum([int(summitem) for summitem in summ]),
                 'customer': customer,
@@ -48,10 +58,18 @@ def customer_invoice(request):
                 'four':four,
                 'summ':summ}
         
-        
         return render(request, 'customer_invoice_detail.html', context)
     else:
         return render(request, 'customer_invoice.html')
+
+
+
+
+def split(request):
+    print(customer_invoice.total)
+    total = customer_invoice.total
+    context = {'total': total}
+    return render(request, 'split.html', context)
 
 def remove(request):
     if request.method == 'POST':
@@ -92,13 +110,15 @@ def export_users_xls(request):
         member = member + (tot,)
                
         writer.writerow(member)
-        
 
     response['Contet-Disposition'] = 'attachment; filename = "products.csv"'
     
     return response
+
     
     
-    
+def clear(request):
+    Product.objects.all().delete()
+    return redirect("dashboard")
     
     

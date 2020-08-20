@@ -34,9 +34,10 @@
 			 {% csrf_token %}
 			 {{form.as_p}}
 			<input type="submit" class="btn btn-primary" value="Save"></input>
+			</form>
    		</div>
 		
-		</form>
+		
 		</div>
         
       </div>
@@ -44,6 +45,8 @@
 	  <div class="container"><a href ="{% url 'sold_products' %}" class="btn btn-primary">Sold Items</a>
 	  
 	  <a href ="{% url 'export' %}" class="btn btn-primary">Download Excel</a>
+	  <a href ="{% url 'clear' %}" class="btn btn-primary">Clear Products</a>
+	  
     </div>
 	  
 	  

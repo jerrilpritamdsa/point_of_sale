@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 import json
+from django.http import HttpResponseRedirect
 from .forms import CustomerForm
 from .models import Product, Customer, Order, OrderItem
 
@@ -13,7 +14,7 @@ def dashboard(request):
     return render(request, 'dashboard.html',context)
     
 
-    
+  
       
 
 def billing(request):
@@ -31,11 +32,10 @@ def billing(request):
         #             'products': products, }
         return render(request, 'billing_details.html', {'customer': customer, 'products': products})
 
-def addit(request, product_id=None):
-    product=Product.objects.get(id=product_id)
-    print(product)
-    
-    return redirect("billing")
+
+
+
+
 
 
 

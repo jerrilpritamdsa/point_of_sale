@@ -5,9 +5,32 @@
 {% endblock %}
 
 {% block content %}
-	<h2>All the products sold so far</h2>
-	{% for pro in product %}
-		<p>{{pro.name}} : {{pro.price}}x{{pro.ordered_times}}  = {% widthratio pro.price 1 pro.ordered_times %} </p>
+	
+	
+	<div class="card-deck">
+	<div class="card">
+		<div class="card-header">
+			<h5>All the products sold so far</h5>
+		</div>
+	  <div class="container">
+		{% for pro in product %}
+			<p>{{pro.name}} : {{pro.price}} x {{pro.ordered_times}}  = {% widthratio pro.price 1 pro.ordered_times %} </p>
+			
+		{% endfor %}
+	</div>
+	</div>
+	<div class="card">
+	<div class="card-header">
+        <h5>Enter Product</h5>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+			 {% csrf_token %}
+			 {{form.as_p}}
+			<input type="submit" class="btn btn-primary" value="Save"></input>
+			</form>
+   		</div>
+		</div>
 		
-	{% endfor %}
+		</div>
 {% endblock %}
